@@ -294,7 +294,12 @@ download.file('https://raw.githubusercontent.com/seandavi/hour_of_code/master/gg
               destfile='ggplot2.Rmd')
 ```
 
-# sessionInfo
+# Reproducibility
+
+## Literate programming
+
+- See the [code for these slides](https://github.com/seandavi/hour_of_code/blob/master/HourOfCode.Rmd)
+- [R markdown](https://rmarkdown.rstudio.com/)
 
 ## sessionInfo
 
