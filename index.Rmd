@@ -1,0 +1,31 @@
+---
+title: "Hour of Code -- R"
+author: "Sean Davis"
+---
+
+# Resources
+
+## The Google
+
+- [Google knows R](https://www.google.com/search?q=introduction+to+R+programming)
+
+## Books
+
+- [A Beginners Guide to R](http://www.springer.com/us/book/9780387938363)
+- [Advanced R](http://adv-r.had.co.nz/) or the [Print version](https://www.amazon.com/dp/1466586966/ref=cm_sw_su_dp?tag=devtools-20)
+- [Online R for Data Science](http://r4ds.had.co.nz/) or the [Print version](https://www.amazon.com/R-Data-Science-Hadley-Wickham/dp/1491910399/ref=as_li_ss_tl?ie=UTF8&qid=1469550189&sr=8-1&keywords=R+for+data+science&linkCode=sl1&tag=devtools-20&linkId=6fe0069f9605cf847ed96c191f4e84dd)
+- [Bioconductor Case Studies](https://www.bioconductor.org/help/publications/books/bioconductor-case-studies/)
+
+## Online materials
+
+- [CRAN repository](https://cran.r-project.org)
+- [Bioconductor website](https://bioconductor.org)
+- [Genomics Class](http://genomicsclass.github.io/book/)
+- [ggplot2 documentation](http://docs.ggplot2.org/current/)
+
+## Support
+
+- [StackOverflow](https://stackoverflow.org)
+- [BioStars](https://biostars.org)
+- [Bioconductor Support Site](https://support.bioconductor.org/)
+

@@ -1,0 +1,9 @@
+name: "hour-of-code"
+navbar:
+  title: "Hour of Code -- R"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Slideshow"
+      href: HourOfCode.html
+output_dir: 'docs'
