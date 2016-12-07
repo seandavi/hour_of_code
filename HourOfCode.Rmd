@@ -105,7 +105,7 @@ download.file('https://raw.githubusercontent.com/seandavi/hour_of_code/master/Ho
               destfile='HourOfCode.Rmd')
 ```
 
-- In the file menu, 
+- In the file pane, you can choose the `HourOfCode.Rmd` file and it will open in the RStudio text pane. 
 
 
 ## Interacting with R
