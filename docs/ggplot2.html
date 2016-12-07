@@ -8,12 +8,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
+
 <meta name="author" content="Sean Davis" />
 
 
 <title>Introduction to the Grammar of Graphics, ggplot2</title>
 
-<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-1.1/highlight.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -31,81 +39,209 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </script>
 
 
-<link rel="stylesheet" href="/Library/Frameworks/R.framework/Versions/3.4/Resources/library/BiocStyle/resources/html/bioconductor.css" type="text/css" />
 
-<script type="text/javascript">
-document.addEventListener("DOMContentLoaded", function() {
-  var links = document.links;  
-  for (var i = 0, linksLength = links.length; i < linksLength; i++)
-    if(links[i].hostname != window.location.hostname)
-      links[i].target = '_blank';
-});
-</script>
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
 
 </head>
 
 <body>
 
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
 
-<div id="header">
-<h1 class="title">Introduction to the Grammar of Graphics, ggplot2</h1>
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Hour of Code -- R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="HourOfCode.html">Slideshow</a>
+</li>
+<li>
+  <a href="ggplot2.html">ggplot2 tutorial</a>
+</li>
+<li>
+  <a href="contact.html">Contact me</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Introduction to the Grammar of Graphics, ggplot2</h1>
 <h4 class="author"><em>Sean Davis</em></h4>
+
 </div>
 
-<h1>Contents</h1>
-<div id="TOC">
-<ul>
-<li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a></li>
-<li><a href="#data-model"><span class="toc-section-number">2</span> Data Model</a></li>
-<li><a href="#getting-started"><span class="toc-section-number">3</span> Getting started</a></li>
-<li><a href="#playing-with-ggplot2"><span class="toc-section-number">4</span> Playing with ggplot2</a><ul>
-<li><a href="#mtcars-data"><span class="toc-section-number">4.1</span> mtcars data</a></li>
-<li><a href="#nyc-flight-data"><span class="toc-section-number">4.2</span> NYC Flight data</a></li>
-</ul></li>
-<li><a href="#session-info"><span class="toc-section-number">5</span> Session Info</a></li>
-</ul>
-</div>
 
-<!--
-%% \VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{02 ggplot2 Introduction}
--->
 <div id="introduction" class="section level1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
-<p>The <code>CRANpkg('ggplot2')</code> package is a relatively novel approach to generating highly informative publication-quality graphics. The “gg” stands for “Grammar of Graphics”. In short, instead of thinking about a single function that produces a plot, <code>CRANpkg('ggplot2')</code> uses a “grammar” approach, akin to building more and more complex sentences to layer on more information or nuance.</p>
+<h1>Introduction</h1>
+<p>The <code>ggplot2</code> package is a relatively novel approach to generating highly informative publication-quality graphics. The “gg” stands for “Grammar of Graphics”. In short, instead of thinking about a single function that produces a plot, <code>ggplot2</code> uses a “grammar” approach, akin to building more and more complex sentences to layer on more information or nuance.</p>
 </div>
 <div id="data-model" class="section level1">
-<h1><span class="header-section-number">2</span> Data Model</h1>
-<p>The <code>CRANpkg('ggplot2')</code> package assumes that data are in the form of a data.frame. In some cases, the data will need to be manipulated into a form that matches assumptions that <code>CRANpkg('ggplot2')</code> uses. In particular, if one has a <em>matrix</em> of numbers associated with different subjects (samples, people, etc.), the data will usually need to be transformed into a “long” data frame.</p>
+<h1>Data Model</h1>
+<p>The <code>ggplot2</code> package assumes that data are in the form of a data.frame. In some cases, the data will need to be manipulated into a form that matches assumptions that <code>ggplot2</code> uses. In particular, if one has a <em>matrix</em> of numbers associated with different subjects (samples, people, etc.), the data will usually need to be transformed into a “long” data frame.</p>
 </div>
 <div id="getting-started" class="section level1">
-<h1><span class="header-section-number">3</span> Getting started</h1>
-<p>To use the <code>CRANpkg('ggplot2')</code> package, it must be installed and loaded. Assuming that installation has been done already, we can load the package directly:</p>
+<h1>Getting started</h1>
+<p>To use the <code>ggplot2</code> package, it must be installed and loaded. Assuming that installation has been done already, we can load the package directly:</p>
 <pre class="r"><code>library(ggplot2)</code></pre>
 </div>
 <div id="playing-with-ggplot2" class="section level1">
-<h1><span class="header-section-number">4</span> Playing with ggplot2</h1>
+<h1>Playing with ggplot2</h1>
 <div id="mtcars-data" class="section level2">
-<h2><span class="header-section-number">4.1</span> mtcars data</h2>
-<p>We are going to use the mtcars dataset, included with R, to experiment with <code>CRANpkg('ggplot2')</code>.</p>
+<h2>mtcars data</h2>
+<p>We are going to use the mtcars dataset, included with R, to experiment with <code>ggplot2</code>.</p>
 <pre class="r"><code>data(mtcars)</code></pre>
 <ul>
 <li>Exercise: Explore the <code>mtcars</code> dataset using <code>View</code>, <code>summary</code>, <code>dim</code>, <code>class</code>, etc.</li>
 </ul>
 <p>We can also take a quick look at the relationships between the variables using the <code>pairs</code> plotting function.</p>
 <pre class="r"><code>pairs(mtcars)</code></pre>
-<p>That is a useful view of the data. We want to use <code>CRANpkg('ggplot2')</code> to make an informative plot, so let’s approach this in a piecewise fashion. We first need to decide what type of plot to produce and what our basic variables will be. In this case, we have a number of choices.</p>
+<p>That is a useful view of the data. We want to use <code>ggplot2</code> to make an informative plot, so let’s approach this in a piecewise fashion. We first need to decide what type of plot to produce and what our basic variables will be. In this case, we have a number of choices.</p>
 <pre class="r"><code>ggplot(mtcars,aes(x=disp,y=hp))</code></pre>
 <p>First, a little explanation is necessary. The <code>ggplot</code> function takes as its first argument a <code>data.frame</code>. The second argument is the “aesthetic”, <code>aes</code>. The <code>x</code> and <code>y</code> take column names from the <code>mtcars</code> <code>data.frame</code> and will form the basis of our scatter plot.</p>
 <p>But why did we get that “Error: No layers in plot”? Remember that <em>ggplot2</em> is a “grammar of graphics”. We supplied a subject, but no verb (called a <em>layer</em> by ggplot2). So, to generate a plot, we need to supply a verb. There are many possibilities. Each “verb” or <em>layer</em> typically starts with “geom” and then a descriptor. An example is necessary.</p>
 <pre class="r"><code>ggplot(mtcars,aes(x=disp,y=hp)) + geom_point()</code></pre>
-<p><img src="ggplot2_files/figure-html/ggplotS2-1.png" alt="" /></p>
+<p><img src="ggplot2_files/figure-html/ggplotS2-1.png" width="672" /></p>
 <p>We finally produced a plot. The power of <em>ggplot2</em>, though, is the ability to make very rich plots by adding “grammar” to the “plot sentence”. We have a number of other variables in our <code>mtcars</code> <code>data.frame</code>. How can we add another value to a two-dimensional plot?</p>
 <pre class="r"><code>ggplot(mtcars,aes(x=disp,y=hp,color=cyl)) + geom_point()</code></pre>
-<p><img src="ggplot2_files/figure-html/ggplotS3-1.png" alt="" /></p>
+<p><img src="ggplot2_files/figure-html/ggplotS3-1.png" width="672" /></p>
 <p>The color of the points is a based on the numeric variable <code>wt</code>, the weight of the car. Can we do more? We can change the size of the points, also.</p>
 <pre class="r"><code>ggplot(mtcars,aes(x=disp,y=hp,color=wt,size=mpg)) + geom_point()</code></pre>
-<p><img src="ggplot2_files/figure-html/ggplotS4-1.png" alt="" /></p>
+<p><img src="ggplot2_files/figure-html/ggplotS4-1.png" width="672" /></p>
 <p>So, on our 2D plot, we are now plotting four variables. Can we do more? We can manipulate the shape of the points in addition to the color and the size.</p>
 <pre class="r"><code>ggplot(mtcars,aes(x=disp,y=hp)) + geom_point(aes(size=mpg,color=wt,shape=cyl))</code></pre>
 <p>Why did we get that error? Ggplot2 is trying to be helpful by telling us that a “continuous varialbe cannot be mapped to ‘shape’”. Well, in our <code>mtcars</code> <code>data.frame</code>, we can look at <code>cyl</code> in detail.</p>
@@ -122,10 +258,10 @@ document.addEventListener("DOMContentLoaded", function() {
 <pre class="r"><code>mtcars$cyl = as.factor(mtcars$cyl)</code></pre>
 <p>Now, we can go ahead with our previous approach to make a 2-dimensional plot that displays the relationships between <em>five</em> variables.</p>
 <pre class="r"><code>ggplot(mtcars,aes(x=disp,y=hp)) + geom_point(aes(size=mpg,color=wt,shape=cyl))</code></pre>
-<p><img src="ggplot2_files/figure-html/ggplotS6-1.png" alt="" /></p>
+<p><img src="ggplot2_files/figure-html/ggplotS6-1.png" width="672" /></p>
 </div>
 <div id="nyc-flight-data" class="section level2">
-<h2><span class="header-section-number">4.2</span> NYC Flight data</h2>
+<h2>NYC Flight data</h2>
 <p>I leave this section open-ended for you to explore further options with the <em>ggplot2</em> package. The data represent the on-time data for all flights that departed New York City in 2013.</p>
 <pre class="r"><code>library(nycflights13)
 head(flights)</code></pre>
@@ -146,7 +282,7 @@ head(flights)</code></pre>
 </div>
 </div>
 <div id="session-info" class="section level1">
-<h1><span class="header-section-number">5</span> Session Info</h1>
+<h1>Session Info</h1>
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>## R Under development (unstable) (2016-10-26 r71594)
 ## Platform: x86_64-apple-darwin13.4.0 (64-bit)
@@ -187,6 +323,22 @@ head(flights)</code></pre>
 </div>
 
 
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

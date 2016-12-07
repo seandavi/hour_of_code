@@ -1,35 +1,24 @@
 ---
 author: Sean Davis
 title: Introduction to the Grammar of Graphics, ggplot2
-output:
-  BiocStyle::html_document:
-    toc: true
 ---
-<!--
-%% \VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{02 ggplot2 Introduction}
--->
 
 ```{r setup,echo=FALSE,results="hide",warning=FALSE,message=FALSE}
 library(knitr)
-BiocStyle::markdown()
 opts_chunk$set(warning=FALSE,message=FALSE,cache=TRUE)
-biocurl = function(x) {
-  return(sprintf("http://www.bioconductor.org/packages/release/bioc/html/%s.html",x))
-}
 ```
 
 # Introduction
 
-The `CRANpkg('ggplot2')` package is a relatively novel approach to generating highly informative publication-quality graphics. The "gg" stands for "Grammar of Graphics". In short, instead of thinking about a single function that produces a plot, `CRANpkg('ggplot2')` uses a "grammar" approach, akin to building more and more complex sentences to layer on more information or nuance. 
+The `ggplot2` package is a relatively novel approach to generating highly informative publication-quality graphics. The "gg" stands for "Grammar of Graphics". In short, instead of thinking about a single function that produces a plot, `ggplot2` uses a "grammar" approach, akin to building more and more complex sentences to layer on more information or nuance. 
 
 # Data Model
 
-The `CRANpkg('ggplot2')` package assumes that data are in the form of a data.frame. In some cases, the data will need to be manipulated into a form that matches assumptions that `CRANpkg('ggplot2')` uses.  In particular, if one has a *matrix* of numbers associated with different subjects (samples, people, etc.), the data will usually need to be transformed into a "long" data frame. 
+The `ggplot2` package assumes that data are in the form of a data.frame. In some cases, the data will need to be manipulated into a form that matches assumptions that `ggplot2` uses.  In particular, if one has a *matrix* of numbers associated with different subjects (samples, people, etc.), the data will usually need to be transformed into a "long" data frame. 
 
 # Getting started
 
-To use the `CRANpkg('ggplot2')` package, it must be installed and loaded. Assuming that installation has been done already, we can load the package directly:
+To use the `ggplot2` package, it must be installed and loaded. Assuming that installation has been done already, we can load the package directly:
 
 ```{r load}
 library(ggplot2)
@@ -39,7 +28,7 @@ library(ggplot2)
 
 ## mtcars data
 
-We are going to use the mtcars dataset, included with R, to experiment with `CRANpkg('ggplot2')`.  
+We are going to use the mtcars dataset, included with R, to experiment with `ggplot2`.  
 
 ```{r mtcarsLoad}
 data(mtcars)
@@ -53,7 +42,7 @@ We can also take a quick look at the relationships between the variables using t
 pairs(mtcars)
 ```
 
-That is a useful view of the data. We want to use `CRANpkg('ggplot2')` to make an informative plot, so let's approach this in a piecewise fashion.  We first need to decide what type of plot to produce and what our basic variables will be.  In this case, we have a number of choices.  
+That is a useful view of the data. We want to use `ggplot2` to make an informative plot, so let's approach this in a piecewise fashion.  We first need to decide what type of plot to produce and what our basic variables will be.  In this case, we have a number of choices.  
 
 ```{r ggplotS1,eval=FALSE}
 ggplot(mtcars,aes(x=disp,y=hp))
