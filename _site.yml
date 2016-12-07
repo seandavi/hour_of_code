@@ -9,3 +9,7 @@ navbar:
     - text: "Contact me"
       href: contact.html
 output_dir: 'docs'
+output:
+  html_document:
+    theme: cosmo
+    highlight: textmate
