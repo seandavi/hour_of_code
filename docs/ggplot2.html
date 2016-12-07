@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="Sean Davis" />
+
+
+<title>Introduction to the Grammar of Graphics, ggplot2</title>
+
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="/Library/Frameworks/R.framework/Versions/3.4/Resources/library/BiocStyle/resources/html/bioconductor.css" type="text/css" />
+
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+  var links = document.links;  
+  for (var i = 0, linksLength = links.length; i < linksLength; i++)
+    if(links[i].hostname != window.location.hostname)
+      links[i].target = '_blank';
+});
+</script>
+
+</head>
+
+<body>
+
+
+<div id="header">
+<h1 class="title">Introduction to the Grammar of Graphics, ggplot2</h1>
+<h4 class="author"><em>Sean Davis</em></h4>
+</div>
+
+<h1>Contents</h1>
+<div id="TOC">
+<ul>
+<li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#data-model"><span class="toc-section-number">2</span> Data Model</a></li>
+<li><a href="#getting-started"><span class="toc-section-number">3</span> Getting started</a></li>
+<li><a href="#playing-with-ggplot2"><span class="toc-section-number">4</span> Playing with ggplot2</a><ul>
+<li><a href="#mtcars-data"><span class="toc-section-number">4.1</span> mtcars data</a></li>
+<li><a href="#nyc-flight-data"><span class="toc-section-number">4.2</span> NYC Flight data</a></li>
+</ul></li>
+<li><a href="#session-info"><span class="toc-section-number">5</span> Session Info</a></li>
+</ul>
+</div>
+
+<!--
+%% \VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{02 ggplot2 Introduction}
+-->
+<div id="introduction" class="section level1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
+<p>The <code>CRANpkg('ggplot2')</code> package is a relatively novel approach to generating highly informative publication-quality graphics. The “gg” stands for “Grammar of Graphics”. In short, instead of thinking about a single function that produces a plot, <code>CRANpkg('ggplot2')</code> uses a “grammar” approach, akin to building more and more complex sentences to layer on more information or nuance.</p>
+</div>
+<div id="data-model" class="section level1">
+<h1><span class="header-section-number">2</span> Data Model</h1>
+<p>The <code>CRANpkg('ggplot2')</code> package assumes that data are in the form of a data.frame. In some cases, the data will need to be manipulated into a form that matches assumptions that <code>CRANpkg('ggplot2')</code> uses. In particular, if one has a <em>matrix</em> of numbers associated with different subjects (samples, people, etc.), the data will usually need to be transformed into a “long” data frame.</p>
+</div>
+<div id="getting-started" class="section level1">
+<h1><span class="header-section-number">3</span> Getting started</h1>
+<p>To use the <code>CRANpkg('ggplot2')</code> package, it must be installed and loaded. Assuming that installation has been done already, we can load the package directly:</p>
+<pre class="r"><code>library(ggplot2)</code></pre>
+</div>
+<div id="playing-with-ggplot2" class="section level1">
+<h1><span class="header-section-number">4</span> Playing with ggplot2</h1>
+<div id="mtcars-data" class="section level2">
+<h2><span class="header-section-number">4.1</span> mtcars data</h2>
+<p>We are going to use the mtcars dataset, included with R, to experiment with <code>CRANpkg('ggplot2')</code>.</p>
+<pre class="r"><code>data(mtcars)</code></pre>
+<ul>
+<li>Exercise: Explore the <code>mtcars</code> dataset using <code>View</code>, <code>summary</code>, <code>dim</code>, <code>class</code>, etc.</li>
+</ul>
+<p>We can also take a quick look at the relationships between the variables using the <code>pairs</code> plotting function.</p>
+<pre class="r"><code>pairs(mtcars)</code></pre>
+<p>That is a useful view of the data. We want to use <code>CRANpkg('ggplot2')</code> to make an informative plot, so let’s approach this in a piecewise fashion. We first need to decide what type of plot to produce and what our basic variables will be. In this case, we have a number of choices.</p>
+<pre class="r"><code>ggplot(mtcars,aes(x=disp,y=hp))</code></pre>
+<p>First, a little explanation is necessary. The <code>ggplot</code> function takes as its first argument a <code>data.frame</code>. The second argument is the “aesthetic”, <code>aes</code>. The <code>x</code> and <code>y</code> take column names from the <code>mtcars</code> <code>data.frame</code> and will form the basis of our scatter plot.</p>
+<p>But why did we get that “Error: No layers in plot”? Remember that <em>ggplot2</em> is a “grammar of graphics”. We supplied a subject, but no verb (called a <em>layer</em> by ggplot2). So, to generate a plot, we need to supply a verb. There are many possibilities. Each “verb” or <em>layer</em> typically starts with “geom” and then a descriptor. An example is necessary.</p>
+<pre class="r"><code>ggplot(mtcars,aes(x=disp,y=hp)) + geom_point()</code></pre>
+<p><img src="ggplot2_files/figure-html/ggplotS2-1.png" alt="" /></p>
+<p>We finally produced a plot. The power of <em>ggplot2</em>, though, is the ability to make very rich plots by adding “grammar” to the “plot sentence”. We have a number of other variables in our <code>mtcars</code> <code>data.frame</code>. How can we add another value to a two-dimensional plot?</p>
+<pre class="r"><code>ggplot(mtcars,aes(x=disp,y=hp,color=cyl)) + geom_point()</code></pre>
+<p><img src="ggplot2_files/figure-html/ggplotS3-1.png" alt="" /></p>
+<p>The color of the points is a based on the numeric variable <code>wt</code>, the weight of the car. Can we do more? We can change the size of the points, also.</p>
+<pre class="r"><code>ggplot(mtcars,aes(x=disp,y=hp,color=wt,size=mpg)) + geom_point()</code></pre>
+<p><img src="ggplot2_files/figure-html/ggplotS4-1.png" alt="" /></p>
+<p>So, on our 2D plot, we are now plotting four variables. Can we do more? We can manipulate the shape of the points in addition to the color and the size.</p>
+<pre class="r"><code>ggplot(mtcars,aes(x=disp,y=hp)) + geom_point(aes(size=mpg,color=wt,shape=cyl))</code></pre>
+<p>Why did we get that error? Ggplot2 is trying to be helpful by telling us that a “continuous varialbe cannot be mapped to ‘shape’”. Well, in our <code>mtcars</code> <code>data.frame</code>, we can look at <code>cyl</code> in detail.</p>
+<pre class="r"><code>class(mtcars$cyl)</code></pre>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<pre class="r"><code>summary(mtcars$cyl)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   4.000   4.000   6.000   6.188   8.000   8.000</code></pre>
+<pre class="r"><code>table(mtcars$cyl)</code></pre>
+<pre><code>## 
+##  4  6  8 
+## 11  7 14</code></pre>
+<p>The <code>cyl</code> variable is “kinda” continuous in that it is numeric, but it could also be thought of as a “category” of engines. R has a specific data type for “category” data, called a <em>factor</em>. We can easily convert the <code>cyl</code> column to a factor like so:</p>
+<pre class="r"><code>mtcars$cyl = as.factor(mtcars$cyl)</code></pre>
+<p>Now, we can go ahead with our previous approach to make a 2-dimensional plot that displays the relationships between <em>five</em> variables.</p>
+<pre class="r"><code>ggplot(mtcars,aes(x=disp,y=hp)) + geom_point(aes(size=mpg,color=wt,shape=cyl))</code></pre>
+<p><img src="ggplot2_files/figure-html/ggplotS6-1.png" alt="" /></p>
+</div>
+<div id="nyc-flight-data" class="section level2">
+<h2><span class="header-section-number">4.2</span> NYC Flight data</h2>
+<p>I leave this section open-ended for you to explore further options with the <em>ggplot2</em> package. The data represent the on-time data for all flights that departed New York City in 2013.</p>
+<pre class="r"><code>library(nycflights13)
+head(flights)</code></pre>
+<pre><code>## # A tibble: 6 × 19
+##    year month   day dep_time sched_dep_time dep_delay arr_time
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+## 1  2013     1     1      517            515         2      830
+## 2  2013     1     1      533            529         4      850
+## 3  2013     1     1      542            540         2      923
+## 4  2013     1     1      544            545        -1     1004
+## 5  2013     1     1      554            600        -6      812
+## 6  2013     1     1      554            558        -4      740
+## # ... with 12 more variables: sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;,
+## #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,
+## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;,
+## #   time_hour &lt;dttm&gt;</code></pre>
+<p>Feel free to explore. Consider using other “geoms” during your exploration.</p>
+</div>
+</div>
+<div id="session-info" class="section level1">
+<h1><span class="header-section-number">5</span> Session Info</h1>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R Under development (unstable) (2016-10-26 r71594)
+## Platform: x86_64-apple-darwin13.4.0 (64-bit)
+## Running under: macOS Sierra 10.12.1
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  base     
+## 
+## other attached packages:
+## [1] nycflights13_0.2.0 ggplot2_2.2.0      BiocStyle_2.3.15  
+## [4] knitr_1.15.1      
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_0.12.8.2      codetools_0.2-15   assertthat_0.1    
+##  [4] digest_0.6.10      rprojroot_1.1      plyr_1.8.4        
+##  [7] grid_3.4.0         gtable_0.2.0       backports_1.0.4   
+## [10] magrittr_1.5       evaluate_0.10      scales_0.4.1      
+## [13] stringi_1.1.2      lazyeval_0.2.0     rmarkdown_1.2.9000
+## [16] labeling_0.3       tools_3.4.0        stringr_1.1.0     
+## [19] munsell_0.4.3      yaml_2.1.14        colorspace_1.3-1  
+## [22] htmltools_0.3.5    tibble_1.2         methods_3.4.0</code></pre>
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2851481-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

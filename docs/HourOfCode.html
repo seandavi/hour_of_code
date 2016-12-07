@@ -154,7 +154,290 @@
 
 <h3>Take-home Message</h3>
 
-<p>This license means that R will always be available, will always be open source, and can grow organically without constraint.</p></article></slide>
+<p>This license means that R will always be available, will always be open source, and can grow organically without constraint.</p>
+
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Getting started</h2></hgroup><article  id="getting-started">
+
+</article></slide><slide class=''><hgroup><h2>Installation</h2></hgroup><article  id="installation">
+
+<p>The first step is to install R. You can download and install R from the <a href='https://cran.r-project.org/' title=''>Comprehensive R Archive Network</a> (CRAN). It is relatively straightforward, but if you need further help you can try the following resources:</p>
+
+<ul>
+<li><a href='https://github.com/genomicsclass/windows#installing-r' title=''>Installing R on Windows</a></li>
+<li><a href='http://youtu.be/Icawuhf0Yqo' title=''>Installing R on Mac</a></li>
+<li><a href='http://cran.r-project.org/bin/linux/ubuntu/README' title=''>Installing R on Ubuntu</a></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Installing RStudio</h2></hgroup><article  id="installing-rstudio">
+
+<p>The next step is to install <a href='https://www.rstudio.com' title=''>RStudio</a>, a program for viewing and running R scripts. Technically you can run all the code shown here without installing RStudio, but we highly recommend this integrated development environment (IDE).</p>
+
+<ul>
+<li><a href='http://www.rstudio.com/products/rstudio/download/' title=''>Instructions are here</a>.</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>R on your own</h2></hgroup><article  id="r-on-your-own">
+
+<p>Try out the <a href='http://swirlstats.com/' title=''>swirl</a> tutorial, which teaches you R programming and data science interactively, at your own pace and in the R console. Once you have R installed, you can install <code>swirl</code> and run it the following way:</p>
+
+<pre class = 'prettyprint lang-r'>install.packages(&quot;swirl&quot;)
+library(swirl)
+swirl()</pre>
+
+</article></slide><slide class=''><hgroup><h2>Quick R references</h2></hgroup><article  id="quick-r-references">
+
+<p>There are also many open and free resources and reference guides for R. Two examples are:</p>
+
+<ul>
+<li><a href='http://www.statmethods.net/' title=''>Quick-R</a>: a quick online reference for data input, basic statistics and plots</li>
+<li>R reference card <a href='https://cran.r-project.org/doc/contrib/Short-refcard.pdf' title=''>PDF</a> by Tom Short</li>
+</ul>
+
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>R from zero</h2></hgroup><article  id="r-from-zero">
+
+</article></slide><slide class=''><hgroup><h2>Follow along</h2></hgroup><article  id="follow-along">
+
+<ul>
+<li>In RStudio, copy and paste the following:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>download.file(&#39;https://raw.githubusercontent.com/seandavi/hour_of_code/master/HourOfCode.Rmd&#39;,
+              destfile=&#39;HourOfCode.Rmd&#39;)</pre>
+
+<ul>
+<li>In the file menu,</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Interacting with R</h2></hgroup><article  id="interacting-with-r">
+
+<h3>Expression</h3>
+
+<pre class = 'prettyprint lang-r'>1 + pi + sin(3.7)</pre>
+
+<pre >## [1] 3.611757</pre>
+
+<h3>Assignment</h3>
+
+<pre class = 'prettyprint lang-r'>x = 1
+y &lt;- 2
+3 -&gt; z</pre>
+
+</article></slide><slide class=''><hgroup><h2>Interacting with R</h2></hgroup><article  id="interacting-with-r-1">
+
+<ul>
+<li>The <code>&lt;-</code>, <code>-&gt;</code> and <code>=</code> are all assignment operators.</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>x = 1
+y &lt;- 2
+3 -&gt; z</pre>
+
+<ul>
+<li>If a line is not a complete R command, R will continue the next line with a <code>+</code>.</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>1 + pi + 
+    sin(3.7)</pre>
+
+</article></slide><slide class=''><hgroup><h2>Getting help</h2></hgroup><article  id="getting-help">
+
+<p>R has extensive help functionality built in.</p>
+
+<pre class = 'prettyprint lang-r'>help(&#39;print&#39;)
+help(print)
+?print
+?data.frame
+?`+`</pre>
+
+<pre class = 'prettyprint lang-r'>help.search(&#39;microarray&#39;)
+RSiteSearch(&#39;microarray&#39;)</pre>
+
+<ul>
+<li><em>For any new function that you see, type <code>help(newfunction)</code></em>.</li>
+</ul>
+
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>First steps in R</h2></hgroup><article  id="first-steps-in-r">
+
+</article></slide><slide class=''><hgroup><h2>Paths and the Working Directory</h2></hgroup><article  id="paths-and-the-working-directory">
+
+<p>When you are working in R it is useful to know your <em>working directory</em>. This is the directory or folder in which R will save or look for files by default. You can see your working directory by typing:</p>
+
+<pre class = 'prettyprint lang-r'>getwd()</pre>
+
+</article></slide><slide class=''><hgroup><h2>Loading data into R</h2></hgroup><article  id="loading-data-into-r">
+
+<p>R can read files of many different types and from many different sources.</p>
+
+<h3>Directly from the web</h3>
+
+<pre class = 'prettyprint lang-r'>dir &lt;- &quot;https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/&quot;
+url &lt;- paste0(dir, &quot;femaleMiceWeights.csv&quot;)
+dat &lt;- read.csv(url)</pre>
+
+<h3>Download first</h3>
+
+<pre class = 'prettyprint lang-r'>library(downloader) ##use install.packages to install
+dir &lt;- &quot;https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/&quot;
+filename &lt;- &quot;femaleMiceWeights.csv&quot; 
+url &lt;- paste0(dir, filename)
+if (!file.exists(filename)) download(url, destfile=filename)</pre>
+
+</article></slide><slide class=''><hgroup><h2>Working with data</h2></hgroup><article  id="working-with-data">
+
+<pre class = 'prettyprint lang-r'>head(dat)
+tail(dat)
+summary(dat)
+dim(dat)</pre>
+
+</article></slide><slide class=''><hgroup><h2>Working with data</h2></hgroup><article  id="working-with-data-1">
+
+<pre class = 'prettyprint lang-r'>head(dat)</pre>
+
+<pre >##   Diet Bodyweight
+## 1 chow      21.51
+## 2 chow      28.14
+## 3 chow      24.04
+## 4 chow      23.45
+## 5 chow      23.68
+## 6 chow      19.79</pre>
+
+</article></slide><slide class=''><hgroup><h2>Working with data</h2></hgroup><article  id="working-with-data-2">
+
+<pre class = 'prettyprint lang-r'>tail(dat)</pre>
+
+<pre >##    Diet Bodyweight
+## 19   hf      29.58
+## 20   hf      30.92
+## 21   hf      34.02
+## 22   hf      21.90
+## 23   hf      31.53
+## 24   hf      20.73</pre>
+
+</article></slide><slide class=''><hgroup><h2>Working with data</h2></hgroup><article  id="working-with-data-3">
+
+<pre class = 'prettyprint lang-r'>summary(dat)</pre>
+
+<pre >##    Diet      Bodyweight   
+##  chow:12   Min.   :19.79  
+##  hf  :12   1st Qu.:22.36  
+##            Median :25.16  
+##            Mean   :25.32  
+##            3rd Qu.:28.14  
+##            Max.   :34.02</pre>
+
+</article></slide><slide class=''><hgroup><h2>Working with data</h2></hgroup><article  id="working-with-data-4">
+
+<pre class = 'prettyprint lang-r'>dim(dat)</pre>
+
+<pre >## [1] 24  2</pre>
+
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>dplyr</h2></hgroup><article  id="dplyr">
+
+</article></slide><slide class=''><hgroup><h2>dplyr filter</h2></hgroup><article  id="dplyr-filter">
+
+<pre class = 'prettyprint lang-r'>library(dplyr) 
+chow &lt;- filter(dat, Diet==&quot;chow&quot;) #keep only the ones with chow diet
+head(chow)</pre>
+
+<pre >##   Diet Bodyweight
+## 1 chow      21.51
+## 2 chow      28.14
+## 3 chow      24.04
+## 4 chow      23.45
+## 5 chow      23.68
+## 6 chow      19.79</pre>
+
+</article></slide><slide class=''><hgroup><h2>dplyr select</h2></hgroup><article  id="dplyr-select">
+
+<pre class = 'prettyprint lang-r'>chowVals &lt;- select(chow,Bodyweight)
+head(chowVals)</pre>
+
+<pre >##   Bodyweight
+## 1      21.51
+## 2      28.14
+## 3      24.04
+## 4      23.45
+## 5      23.68
+## 6      19.79</pre>
+
+</article></slide><slide class=''><hgroup><h2>Piping</h2></hgroup><article  id="piping">
+
+<pre class = 'prettyprint lang-r'>chowVals &lt;- filter(dat, Diet==&quot;chow&quot;) %&gt;% select(Bodyweight) %&gt;% unlist
+hist(chowVals)</pre>
+
+<p><img src='HourOfCode_files/figure-html/unnamed-chunk-19-1.png' title=''/><!-- --></p>
+
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Plotting with ggplot2</h2></hgroup><article  id="plotting-with-ggplot2">
+
+</article></slide><slide class=''><hgroup><h2>ggplot2 package</h2></hgroup><article  id="ggplot2-package">
+
+<p>The <code>ggplot2</code> package is a relatively novel approach to generating highly informative publication-quality graphics. The &quot;gg&quot; stands for &quot;Grammar of Graphics&quot;. In short, instead of thinking about a single function that produces a plot, <code>ggplot2</code> uses a &quot;grammar&quot; approach, akin to building more and more complex sentences to layer on more information or nuance.</p>
+
+</article></slide><slide class=''><hgroup><h2>Data Model</h2></hgroup><article  id="data-model">
+
+<p>The <code>ggplot2</code> package assumes that data are in the form of a data.frame. In some cases, the data will need to be manipulated into a form that matches assumptions that <code>ggplot2</code> uses. In particular, if one has a <em>matrix</em> of numbers associated with different subjects (samples, people, etc.), the data will usually need to be transformed into a &quot;long&quot; data frame.</p>
+
+</article></slide><slide class=''><hgroup><h2>Getting started</h2></hgroup><article  id="getting-started-1">
+
+<p>To use the <code>ggplot2</code> package, it must be installed and loaded. Assuming that installation has been done already, we can load the package directly:</p>
+
+<pre class = 'prettyprint lang-r'>library(ggplot2)</pre>
+
+</article></slide><slide class=''><hgroup><h2>Playing with ggplot2</h2></hgroup><article  id="playing-with-ggplot2">
+
+</article></slide><slide class=''><hgroup><h2>mtcars data</h2></hgroup><article  id="mtcars-data">
+
+<p>We are going to use the mtcars dataset, included with R, to experiment with <code>ggplot2</code>.</p>
+
+<pre class = 'prettyprint lang-r'>data(mtcars)</pre>
+
+<ul>
+<li>Exercise: Explore the <code>mtcars</code> dataset using <code>View</code>, <code>summary</code>, <code>dim</code>, <code>class</code>, etc.</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Pairs plot</h2></hgroup><article  id="pairs-plot">
+
+<p>We can also take a quick look at the relationships between the variables using the <code>pairs</code> plotting function.</p>
+
+<pre class = 'prettyprint lang-r'>pairs(mtcars[,1:4])</pre>
+
+<p><img src='HourOfCode_files/figure-html/mtcarsPlot-1.png' title=''/><!-- --></p>
+
+</article></slide><slide class=''><hgroup><h2>Go to the vignette</h2></hgroup><article  id="go-to-the-vignette">
+
+<pre class = 'prettyprint lang-r'>download.file(&#39;https://raw.githubusercontent.com/seandavi/hour_of_code/master/ggplot2.Rmd&#39;,
+              destfile=&#39;ggplot2.Rmd&#39;)</pre>
+
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>sessionInfo</h2></hgroup><article  id="sessioninfo">
+
+</article></slide><slide class=''><hgroup><h2>sessionInfo</h2></hgroup><article  id="sessioninfo-1">
+
+<pre class = 'prettyprint lang-r'>sessionInfo()</pre>
+
+<pre >## R Under development (unstable) (2016-10-26 r71594)
+## Platform: x86_64-apple-darwin13.4.0 (64-bit)
+## Running under: macOS Sierra 10.12.1
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  base     
+## 
+## other attached packages:
+## [1] dplyr_0.5.0        nycflights13_0.2.0 ggplot2_2.2.0     
+## [4] BiocStyle_2.3.15   knitr_1.15.1      
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_0.12.8.2      magrittr_1.5       munsell_0.4.3     
+##  [4] colorspace_1.3-1   R6_2.2.0           stringr_1.1.0     
+##  [7] plyr_1.8.4         tools_3.4.0        grid_3.4.0        
+## [10] gtable_0.2.0       DBI_0.5-1          htmltools_0.3.5   
+## [13] yaml_2.1.14        lazyeval_0.2.0     rprojroot_1.1     
+## [16] digest_0.6.10      assertthat_0.1     tibble_1.2        
+## [19] codetools_0.2-15   evaluate_0.10      rmarkdown_1.2.9000
+## [22] labeling_0.3       stringi_1.1.2      methods_3.4.0     
+## [25] scales_0.4.1       backports_1.0.4</pre></article></slide>
 
 
   <slide class="backdrop"></slide>

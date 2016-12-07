@@ -21,6 +21,8 @@ author: "Sean Davis"
 
 ## Online materials
 
+- [Quick-R](http://www.statmethods.net/): a quick online reference for data input, basic statistics and plots
+- R reference card [PDF](https://cran.r-project.org/doc/contrib/Short-refcard.pdf) by Tom Short
 - [CRAN repository](https://cran.r-project.org)
 - [Bioconductor website](https://bioconductor.org)
 - [Genomics Class](http://genomicsclass.github.io/book/)

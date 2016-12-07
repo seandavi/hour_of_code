@@ -53,3 +53,251 @@ output:
 ### Take-home Message
 
 This license means that R will always be available, will always be open source, and can grow organically without constraint.
+
+# Getting started
+
+## Installation
+
+The first step is to install R. You can download and install R from
+the [Comprehensive R Archive Network](https://cran.r-project.org/)
+(CRAN). It is relatively straightforward, but if you need further help
+you can try the following resources: 
+
+* [Installing R on Windows](https://github.com/genomicsclass/windows#installing-r) 
+* [Installing R on Mac](http://youtu.be/Icawuhf0Yqo)
+* [Installing R on Ubuntu](http://cran.r-project.org/bin/linux/ubuntu/README)
+
+## Installing RStudio
+
+The next step is to install [RStudio](https://www.rstudio.com), a program for viewing and running
+R scripts. Technically you can run all the code shown here without
+installing RStudio, but we highly recommend this integrated
+development environment (IDE). 
+
+- [Instructions are here](http://www.rstudio.com/products/rstudio/download/). 
+
+## R on your own
+
+Try out the [swirl](http://swirlstats.com/) tutorial, which teaches you R programming and data science interactively, at your own pace and in the R console. Once you have R installed, you can install `swirl` and run it the following way: 
+
+```{r, eval=FALSE}
+install.packages("swirl")
+library(swirl)
+swirl()
+```
+
+## Quick R references
+
+There are also many open and free resources and reference
+guides for R. Two examples are:
+
+- [Quick-R](http://www.statmethods.net/): a quick online reference for data input, basic statistics and plots
+- R reference card [PDF](https://cran.r-project.org/doc/contrib/Short-refcard.pdf) by Tom Short
+
+# R from zero
+
+## Follow along
+
+- In RStudio, copy and paste the following:
+
+```{r eval=FALSE}
+download.file('https://raw.githubusercontent.com/seandavi/hour_of_code/master/HourOfCode.Rmd',
+              destfile='HourOfCode.Rmd')
+```
+
+- In the file menu, 
+
+
+## Interacting with R
+
+### Expression
+
+```{r}
+1 + pi + sin(3.7)
+```
+
+### Assignment
+
+```{r}
+x = 1
+y <- 2
+3 -> z
+```
+
+## Interacting with R
+
+- The `<-`, `->` and `=` are all assignment operators.
+
+```{r eval=FALSE}
+x = 1
+y <- 2
+3 -> z
+```
+
+- If a line is not a complete R command, R will continue the next line with a `+`.
+
+```{r eval=FALSE}
+1 + pi + 
+    sin(3.7)
+```
+
+## Getting help
+
+R has extensive help functionality built in.
+
+```{r eval=FALSE}
+help('print')
+help(print)
+?print
+?data.frame
+?`+`
+```
+
+```{r eval=FALSE}
+help.search('microarray')
+RSiteSearch('microarray')
+```
+
+- *For any new function that you see, type `help(newfunction)`*.
+
+# First steps in R
+
+## Paths and the Working Directory
+
+When you are working in R it is useful to know your _working directory_. This is the directory or folder in which R will save or look for files by default. You can see your working directory by typing:
+
+```{r, eval=FALSE}
+getwd()
+```
+
+## Loading data into R
+
+R can read files of many different types and from many different sources. 
+
+### Directly from the web
+
+```{r}
+dir <- "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/"
+url <- paste0(dir, "femaleMiceWeights.csv")
+dat <- read.csv(url)
+```
+
+### Download first
+
+```{r eval=FALSE}
+library(downloader) ##use install.packages to install
+dir <- "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/"
+filename <- "femaleMiceWeights.csv" 
+url <- paste0(dir, filename)
+if (!file.exists(filename)) download(url, destfile=filename)
+```
+
+## Working with data
+
+```{r eval=FALSE}
+head(dat)
+tail(dat)
+summary(dat)
+dim(dat)
+```
+
+## Working with data
+
+```{r}
+head(dat)
+```
+
+## Working with data
+
+```{r}
+tail(dat)
+```
+
+## Working with data
+
+```{r}
+summary(dat)
+```
+
+## Working with data
+
+```{r}
+dim(dat)
+```
+
+# dplyr
+
+## dplyr filter
+
+```{r}
+library(dplyr) 
+chow <- filter(dat, Diet=="chow") #keep only the ones with chow diet
+head(chow)
+```
+
+## dplyr select
+
+```{r}
+chowVals <- select(chow,Bodyweight)
+head(chowVals)
+```
+
+## Piping
+
+```{r}
+chowVals <- filter(dat, Diet=="chow") %>% select(Bodyweight) %>% unlist
+hist(chowVals)
+```
+
+# Plotting with ggplot2
+
+## ggplot2 package
+
+The `ggplot2` package is a relatively novel approach to generating highly informative publication-quality graphics. The "gg" stands for "Grammar of Graphics". In short, instead of thinking about a single function that produces a plot, `ggplot2` uses a "grammar" approach, akin to building more and more complex sentences to layer on more information or nuance. 
+
+## Data Model
+
+The `ggplot2` package assumes that data are in the form of a data.frame. In some cases, the data will need to be manipulated into a form that matches assumptions that `ggplot2` uses.  In particular, if one has a *matrix* of numbers associated with different subjects (samples, people, etc.), the data will usually need to be transformed into a "long" data frame. 
+
+## Getting started
+
+To use the `ggplot2` package, it must be installed and loaded. Assuming that installation has been done already, we can load the package directly:
+
+```{r load}
+library(ggplot2)
+```
+
+## Playing with ggplot2
+
+## mtcars data
+
+We are going to use the mtcars dataset, included with R, to experiment with `ggplot2`. 
+
+```{r mtcarsLoad}
+data(mtcars)
+```
+
+- Exercise: Explore the `mtcars` dataset using `View`, `summary`, `dim`, `class`, etc.
+
+## Pairs plot
+
+We can also take a quick look at the relationships between the variables using the `pairs` plotting function.
+
+```{r mtcarsPlot}
+pairs(mtcars[,1:4])
+```
+
+## Go to the vignette
+
+```{r eval=FALSE}
+download.file('https://raw.githubusercontent.com/seandavi/hour_of_code/master/ggplot2.Rmd',
+              destfile='ggplot2.Rmd')
+```
+
+# sessionInfo
+
+## sessionInfo
+
+```{r}
+sessionInfo()
+```

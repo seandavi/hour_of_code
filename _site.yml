@@ -6,6 +6,8 @@ navbar:
       href: index.html
     - text: "Slideshow"
       href: HourOfCode.html
+    - text: "ggplot2 tutorial"
+      href: ggplot2.html
     - text: "Contact me"
       href: contact.html
 output_dir: 'docs'
