@@ -6,4 +6,6 @@ navbar:
       href: index.html
     - text: "Slideshow"
       href: HourOfCode.html
+    - text: "Contact me"
+      href: contact.html
 output_dir: 'docs'

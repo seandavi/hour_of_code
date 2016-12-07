@@ -1,0 +1,7 @@
+---
+title: "Contact me"
+---
+- [Email](mailto:seandavi@gmail.com)
+- [Twitter](https://twitter.com/seandavis12)
+- [GitHub](https://github.com/seandavi)
+

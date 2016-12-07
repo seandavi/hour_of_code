@@ -5,9 +5,12 @@ author: "Sean Davis"
 
 # Resources
 
-## The Google
+## Social and Search
 
-- [Google knows R](https://www.google.com/search?q=introduction+to+R+programming)
+- [The Google](https://www.google.com/search?q=introduction+to+R+programming)
+- [R-bloggers](https://www.r-bloggers.com)
+- [Twitter](https://twitter.com/search?q=%23rstats&src=typd&lang=en)
+- [Rseek search engine](http://rseek.org/)
 
 ## Books
 
